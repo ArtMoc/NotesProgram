@@ -1,0 +1,23 @@
+﻿<Window x:Class="NotesProgram.Models.Update"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotesProgram.Models"
+        mc:Ignorable="d"
+        Title="Update" Height="450" Width="400">
+    <Window.DataContext>
+        <local:UpdateViewModel></local:UpdateViewModel>
+    </Window.DataContext>
+    <StackPanel Margin="10">
+        <Label>Заголовок</Label>
+        <TextBox Text="{Binding AddNote.Header, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label>Текст</Label>
+        <TextBox Text="{Binding AddNote.Text, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label>Ссылка на изображение:</Label>
+        <TextBox Text="{Binding AddNote.ImageUri, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label>Выполнить до</Label>
+        <Calendar SelectedDate="{Binding AddNote.DeadLine, UpdateSourceTrigger=PropertyChanged}"></Calendar>
+        <Button Command="{Binding UpdateClick, UpdateSourceTrigger=PropertyChanged}" Margin="50,15,50,0">Изменитьзапись</Button>
+    </StackPanel>
+</Window>

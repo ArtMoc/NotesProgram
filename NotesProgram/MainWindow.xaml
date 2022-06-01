@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotesProgram"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="400">
+        Title="MainWindow" Height="450" Width="500">
     <Window.DataContext>
         <local:MainViewModel></local:MainViewModel>
     </Window.DataContext>
@@ -14,7 +14,9 @@
             <RowDefinition Height="15*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}">
+        <ListBox ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedNote, UpdateSourceTrigger=PropertyChanged}">
+            
             <ListBox.ItemTemplate>
                 <!--Шаблон одной записи-->
                 <DataTemplate>
@@ -36,7 +38,8 @@
         </ListBox>
         <StackPanel Margin="2" Grid.Row="1" Orientation="Horizontal">
             <Button Command="{Binding NewNote, UpdateSourceTrigger=PropertyChanged}" Padding="3">Добавить запись</Button>
-            
+            <Button Command="{Binding DeleteNote, UpdateSourceTrigger=PropertyChanged}" Padding="3">Удалить запись</Button>
+            <Button Command="{Binding UpdateNote, UpdateSourceTrigger=PropertyChanged}" Padding="3">Изменить запись</Button>
         </StackPanel>
     </Grid>
 </Window>

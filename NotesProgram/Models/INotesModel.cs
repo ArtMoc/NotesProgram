@@ -13,6 +13,6 @@ namespace NotesProgram
         Note GetNote(int id);
         void AddNote(Note note);
         void DeleteNote(Note note);
-        void UodateNote(Note note, Note result);
+        void UpdateNote(Note note, Note result);
     }
 }

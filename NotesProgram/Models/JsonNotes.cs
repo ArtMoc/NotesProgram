@@ -15,7 +15,7 @@ namespace NotesProgram
         private void SaveFile(string filename)
         {
             string json = JsonConvert.SerializeObject(_notes);
-            FileStream fileStream = new FileStream(filename, FileMode.OpenOrCreate);
+            FileStream fileStream = new FileStream(filename, FileMode.Truncate);
             StreamWriter writer = new StreamWriter(fileStream);
             writer.Write(json);
             writer.Flush();
@@ -24,36 +24,14 @@ namespace NotesProgram
         }
         public JsonNotes()
         {
-            FileStream fileStream = new FileStream("notes.txt", FileMode.OpenOrCreate);
-            StreamReader reader = new StreamReader(fileStream);
-            string json = reader.ReadToEnd();
-            _notes = JsonConvert.DeserializeObject<List<Note>>(json);
-            reader.Close();
-            fileStream.Close();
-            /*_notes = new List<Note>()
-            {
-                new Note()
-                {
-                    Id=1,
-                    Header = "Купить молоко",
-                    Text = "Нужно сходить за молоком СРОЧНО!",
-                    ImageUri="d:\\1\\cat.jpg",
-                    DeadLine = DateTime.Now},
-
-                new Note()
-                {
-                    Id=2,
-                    Header="Проверить ДЗ",
-                    Text="Не забывай проверять ДЗ!",
-                    ImageUri="d:\\1\\dog.jpeg",
-                    DeadLine = DateTime.Now
-                }
-            };
-            SaveFile("notes.txt");*/
-
+            GetAllNotes();
         }
         public void AddNote(Note note)
         {
+            if(_notes == null)
+            {
+                _notes = new List<Note>();
+            }
             _notes.Add(note);
             SaveFile("notes.txt");
         }
@@ -79,6 +57,12 @@ namespace NotesProgram
 
         public List<Note> GetAllNotes()
         {
+            FileStream fileStream = new FileStream("notes.txt", FileMode.OpenOrCreate);
+            StreamReader reader = new StreamReader(fileStream);
+            string json = reader.ReadToEnd();
+            _notes = JsonConvert.DeserializeObject<List<Note>>(json);
+            reader.Close();
+            fileStream.Close();
             return _notes;
         }
 
@@ -87,7 +71,7 @@ namespace NotesProgram
             return _notes.Find((note) => note.Id == id);
         }
 
-        public void UodateNote(Note note, Note result)
+        public void UpdateNote(Note note, Note result)
         {
             Note findNote = _notes.Find((n)=>n.Id==note.Id);
             findNote.Header = result.Header;
